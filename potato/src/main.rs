@@ -12,18 +12,18 @@ mod morse;
 fn main() {
     let args: Vec<_> = env::args().collect();
 
-    assert!(args.len() > 2, "Provide more arguments!");
-    uselessify(&args[2], &args[1]);
+    assert!(args.len() > 3, "Provide more arguments!");
+    uselessify(&args[2], &args[1], &args[3]);
 }
 
-fn uselessify(name: &str, method: &str) {
+fn uselessify(name: &str, method: &str, new_name: &str) {
     // All of the file processing stuff;
     let s = process_file(&name);
     // Done doing file stuff, proceeding to uselessifying;
     // NOTE: This is where you add things!
 
     match method {
-        "morse" => morse::Procedure::do_stuff(&s),
+        "morse" => morse::Procedure::do_stuff(&s, new_name),
         _ => panic!("Useless useless method!"),
     };
 }
