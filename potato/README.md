@@ -1,6 +1,6 @@
 #potato
 
-`cargo run <uselessifier> <filename>`
+`cargo run <uselessifier> <filename> <output path>`
 
 ---
 
