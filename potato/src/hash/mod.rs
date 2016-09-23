@@ -4,7 +4,7 @@ use std::string::ToString;
 pub struct Procedure;
 
 impl Procedure {
-    pub fn do_stuff(data: &str) {
+    pub fn do_stuff(data: &str, name: &str) {
         let temp = HashType { s: data.to_string()};
         println!("{}", hash(&temp));
     }
