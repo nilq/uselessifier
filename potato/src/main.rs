@@ -8,6 +8,7 @@ use std::env;
 
 // Add modules here!
 mod morse;
+mod reverse;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -24,6 +25,7 @@ fn uselessify(name: &str, method: &str, new_name: &str) {
 
     match method {
         "morse" => morse::Procedure::do_stuff(&s, new_name),
+        "reverse" => reverse::Procedure::do_stuff(&s, new_name),
         _ => panic!("Useless useless method!"),
     };
 }
