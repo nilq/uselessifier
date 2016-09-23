@@ -1,6 +1,8 @@
 # useless
 ~100 useless ways to represent data, thing for HACK4DK!
 
+> a uselessified piece of data must in some way be unuselessified ...
+
 ---
 
 ###Contributing
