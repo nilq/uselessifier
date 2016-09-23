@@ -8,11 +8,8 @@ use std::env;
 
 // Add modules here!
 mod morse;
-<<<<<<< HEAD
 mod hash;
-=======
 mod reverse;
->>>>>>> 8ec04e6e8aafcce45577043505ed234919a1ec74
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -28,13 +25,9 @@ fn uselessify(name: &str, method: &str, new_name: &str) {
     // NOTE: This is where you add things!
 
     match method {
-<<<<<<< HEAD
-        "morse" => morse::Procedure::do_stuff(&s),
-        "hash" => hash::Procedure::do_stuff(&s),
-=======
+        "hash" => hash::Procedure::do_stuff(&s, new_name),
         "morse" => morse::Procedure::do_stuff(&s, new_name),
         "reverse" => reverse::Procedure::do_stuff(&s, new_name),
->>>>>>> 8ec04e6e8aafcce45577043505ed234919a1ec74
         _ => panic!("Useless useless method!"),
     };
 }
