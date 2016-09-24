@@ -6,12 +6,16 @@ public class FileLoader : MonoBehaviour
 {
     static FileLoader instance;
 
-    FileStream f;
+    public static bool isLoadingURL;
+    public static bool URLLoadSuccess=true;
+
+    Stream f;
 
     byte[] b;
 
     BitArray currentBitArray;
     int currentBitArrayIndex=0;
+    WWW www;
 
     void Awake()
     {
@@ -32,7 +36,7 @@ public class FileLoader : MonoBehaviour
 
     public static void LoadFile(string path)
     {
-        instance.LoadFilePrivate(path);   
+        instance.LoadFilePrivate(path);
     }
 
     void LoadFilePrivate(string path)
@@ -43,6 +47,42 @@ public class FileLoader : MonoBehaviour
         }
         f = new FileStream(path, FileMode.Open);
 
+    }
+
+    public static void LoadFileIn(string path)
+    {
+        string[] files = Directory.GetFiles(path);
+        if (files.Length > 0)
+            LoadFile(files[Random.Range(0, files.Length)]);
+    }
+
+    public static void LoadURL(string url)
+    {
+        instance.LoadURLPrivate(url);
+    }
+
+    void LoadURLPrivate(string url)
+    {
+        StartCoroutine(LoadURLCo(url));
+    }
+
+    IEnumerator LoadURLCo(string url)
+    {
+        isLoadingURL = true;
+        www = new WWW(url);
+        yield return www;
+        if (www.error != null)
+        {
+            Debug.Log(www.error);
+            URLLoadSuccess = false;
+        }
+        else
+        {
+            Debug.Log("FINISHED LOADING DATA");
+            f = new MemoryStream(www.bytes);
+            URLLoadSuccess = true;
+        }
+        isLoadingURL = false;
     }
 
     public static byte NextByte()
@@ -96,5 +136,15 @@ public class FileLoader : MonoBehaviour
     Color NextColorPrivate()
     {
         return new Color(NextByte() / 255f, NextByte() / 255f, NextByte() / 255f);
+    }
+
+    public static float NextFloat()
+    {
+        return instance.NextFloatPrivate();
+    }
+
+    float NextFloatPrivate()
+    {
+        return System.BitConverter.ToSingle(new byte[] { NextByte(), NextByte(), NextByte(), NextByte()}, 0);
     }
 }

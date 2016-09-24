@@ -13,7 +13,7 @@ public class CreateMenu : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
-        Destroy(transform.GetChild(0).gameObject);
+        //Destroy(transform.GetChild(0).gameObject);
         
         for (int i = 0; i < sceneNames.Length; i ++)
         {
