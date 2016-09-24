@@ -18,10 +18,10 @@ fn main() {
     let args: Vec<_> = env::args().collect();
 
     assert!(args.len() > 3, "Provide more arguments!");
-    uselessify(&args[2], &args[1], &args[3], &args[4]);
+    uselessify(&args[2], &args[1], &args[3]);
 }
 
-fn uselessify(name: &str, method: &str, new_name: &str, depend: &str) {
+fn uselessify(name: &str, method: &str, new_name: &str) {
     // All of the file processing stuff;
     let s = process_file(&name);
     // alternatively
@@ -35,7 +35,7 @@ fn uselessify(name: &str, method: &str, new_name: &str, depend: &str) {
         "image" => image::Procedure::do_stuff(&byte_buffer, new_name),
         "fractals" => fractals::Procedure::do_stuff(&byte_buffer, new_name),
         "reverse" => reverse::Procedure::do_stuff(&s, new_name),
-        "shakespeare" => shakespeare::Procedure::do_stuff(&byte_buffer, new_name, depend),
+        "shakespeare" => shakespeare::Procedure::do_stuff(&byte_buffer, new_name),
         _ => panic!("Useless useless method!"),
     };
 }

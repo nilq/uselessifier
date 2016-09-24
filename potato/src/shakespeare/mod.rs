@@ -24,9 +24,9 @@ fn process_file(name: &str) -> String {
 
 impl Procedure {
 
-    pub fn do_stuff(data: &Vec<u8>, name: &str, src: &str) {
+    pub fn do_stuff(data: &Vec<u8>, name: &str) {
 
-        let content = process_file(src);
+        let content = process_file("src/shakespeare.txt");
         let words: Vec<&str> = content.split_whitespace().collect();
 
         let mut res = String::new();
