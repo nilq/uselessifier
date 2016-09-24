@@ -11,6 +11,7 @@ mod morse;
 mod hash;
 mod reverse;
 mod image;
+mod fractals;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -31,6 +32,7 @@ fn uselessify(name: &str, method: &str, new_name: &str) {
         "hash" => hash::Procedure::do_stuff(&s, new_name),
         "morse" => morse::Procedure::do_stuff(&s, new_name),
         "image" => image::Procedure::do_stuff(&byte_buffer, new_name),
+        "fractals" => fractals::Procedure::do_stuff(&byte_buffer, new_name),
         "reverse" => reverse::Procedure::do_stuff(&s, new_name),
         _ => panic!("Useless useless method!"),
     };

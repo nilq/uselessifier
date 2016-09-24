@@ -17,7 +17,7 @@ impl Procedure {
             for y in 0 .. height {
 
                 if i >= data.len() - 4 {
-                    break;
+                    i = 0;
                 }
 
                 let r = data[i];
@@ -34,7 +34,7 @@ impl Procedure {
             }
         }
 
-        new_image.save("output.png").unwrap();
+        new_image.save(name).unwrap();
         println!("Wrote useless image to: {}", name);
     }
 }

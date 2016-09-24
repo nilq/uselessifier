@@ -6,3 +6,4 @@ authors = ["nilq <i.am@nilq.dk>"]
 [dependencies]
 image = "*"
 rand  = "*"
+num   = "*"
