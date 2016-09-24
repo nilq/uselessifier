@@ -13,6 +13,7 @@ mod reverse;
 mod image;
 mod fractals;
 mod shakespeare;
+mod website;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -36,6 +37,7 @@ fn uselessify(name: &str, method: &str, new_name: &str) {
         "fractals" => fractals::Procedure::do_stuff(&byte_buffer, new_name),
         "reverse" => reverse::Procedure::do_stuff(&s, new_name),
         "shakespeare" => shakespeare::Procedure::do_stuff(&byte_buffer, new_name),
+        "website" => website::Procedure::do_stuff(&byte_buffer, new_name),
         _ => panic!("Useless useless method!"),
     };
 }

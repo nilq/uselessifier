@@ -1,0 +1,22 @@
+title
+strong
+tr
+th
+em><strong
+a href="#"
+hr
+h1
+h2
+h3
+h4
+
+h5
+h6
+h6
+p
+h3
+br 
+hr
+strong 
+em
+i
