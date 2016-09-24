@@ -1,0 +1,391 @@
+
+Stack Exchange Inbox Reputation and Badges
+sign up log in tour help
+
+Stack Overflow
+
+    Questions
+    Jobs
+    Documentation
+    Tags
+    Users
+    Badges
+
+    Ask Question
+
+x Dismiss
+Join the Stack Overflow Community
+Stack Overflow is a community of 4.7 million programmers, just like you, helping each other.
+Join them; it only takes a minute:
+Sign up
+How to split a string in Rust?
+up vote
+24
+down vote
+favorite
+5
+	
+
+How do I split a string in Rust? From its documentation it's not clear http://doc.rust-lang.org/std/str/trait.StrSlice.html In Java I'd do that by:
+
+"some string 123 ffd".split("123");
+
+rust
+shareimprove this question
+	
+edited Apr 27 at 12:58
+	
+asked Oct 30 '14 at 1:45
+アレックス
+5,905737100
+	
+add a comment
+4 Answers
+active
+oldest
+votes
+up vote
+31
+down vote
+accepted
+	
+
+Use split()
+
+let mut split = "some string 123 ffd".split("123");
+
+This gives an iterator, which you can loop over, or collect() into a vector.
+
+for s in split {
+  println!("{}", s)
+}
+let vec = split.collect::<Vec<&str>>();
+// OR
+let vec: Vec<&str> = split.collect();
+
+shareimprove this answer
+	
+edited Jun 6 '15 at 12:59
+	
+answered Oct 30 '14 at 2:00
+Manishearth
+5,19822656
+	
+4 	 
+	
+You can also write it .collect::<Vec<_>>(). – Chris Morgan Oct 30 '14 at 2:19
+   	 
+	
+how do I get the length of the result - let split? split.len() doesn't exist. – アレックス Oct 30 '14 at 14:00
+   	 
+	
+@AlexanderSupertramp Use .count(). len() is only for iterators which know their exact size without needing to be consumed, count() consumes the iterator. – Manishearth Oct 30 '14 at 18:16
+   	 
+	
+error: cannot borrow immutable local variable split` as mutable` – アレックス Dec 1 '14 at 8:09
+   	 
+	
+@AlexanderSupertramp let mut split, sorry. – Manishearth Dec 2 '14 at 7:49
+show 4 more comments
+up vote
+1
+down vote
+	
+
+There are three simple ways:
+
+1) by separator:
+
+s.split("separator")
+
+2) by whitespaces:
+
+s.split_whitespace()
+
+3) by newlines:
+
+s.lines()
+
+Result is an options iterator:
+
+let text = "foo\r\nbar\n\nbaz\n";
+let mut lines = text.lines();
+
+assert_eq!(Some("foo"), lines.next());
+assert_eq!(Some("bar"), lines.next());
+assert_eq!(Some(""), lines.next());
+assert_eq!(Some("baz"), lines.next());
+
+assert_eq!(None, lines.next());
+
+shareimprove this answer
+	
+answered Jul 1 at 6:59
+DenisKolodin
+1,2611621
+	
+add a comment
+up vote
+2
+down vote
+	
+
+There's also split_whitespace()
+
+fn main() {
+    let words: Vec<&str> = "   foo   bar\t\nbaz   ".split_whitespace().collect();
+    println!("{:?}", words);
+    // ["foo", "bar", "baz"] 
+}
+
+shareimprove this answer
+	
+answered Apr 27 at 3:41
+jayelm
+3,07211132
+	
+add a comment
+up vote
+8
+down vote
+	
+
+There is a special method split for struct String here: http://doc.rust-lang.org/std/string/struct.String.html#method.split
+
+fn split<'a, P>(&'a self, pat: P) -> Split<'a, P> where P: Pattern<'a>
+
+Split by char:
+
+let v: Vec<&str> = "Mary had a little lamb".split(' ').collect();
+assert_eq!(v, ["Mary", "had", "a", "little", "lamb"]);
+
+Split by string:
+
+let v: Vec<&str> = "lion::tiger::leopard".split("::").collect();
+assert_eq!(v, ["lion", "tiger", "leopard"]);
+
+Split by closure:
+
+let v: Vec<&str> = "abc1def2ghi".split(|c: char| c.is_numeric()).collect();
+assert_eq!(v, ["abc", "def", "ghi"]);
+
+shareimprove this answer
+	
+edited Jun 29 '15 at 15:07
+zmbush
+2,2211929
+	
+answered May 6 '15 at 19:57
+Denis Kreshikhin
+1,91932460
+	
+add a comment
+Your Answer
+
+ 
+Sign up or log in
+
+Sign up using Google
+
+Sign up using Facebook
+
+Sign up using Email and Password
+Post as a guest
+Name
+Email
+
+By posting your answer, you agree to the privacy policy and terms of service.
+Not the answer you're looking for? Browse other questions tagged rust or ask your own question.
+
+asked
+	
+
+1 year ago
+
+viewed
+	
+
+9966 times
+
+active
+	
+
+2 months ago
+Want a python job?
+
+    DevOps Engineer
+    SYBO GamesKøbenhavn, Denmark
+    pythonjenkins
+    Senior Backend Engineer
+    Falcon.ioKøbenhavn, Denmark
+    pythonjava
+    Senior Back End (Python) Developer SDE
+    Calendar42Delft, Netherlands
+    pythondjango
+    Senior Data Scientist Lead - new role, create and build a team
+    Abcam PlcMilton, UK
+    Relocation
+    pythonbayesian
+
+28 People Chatting
+PHP
+5 hours ago - Mahmudul Haque Khan
+[Mahmudul Haque Khan: 5 hours ago] [Saitama: 6 hours ago] [Paul Crovella: 7 hours ago] [Sherif: 7 hours ago] [little pootis: 7 hours ago] [Jeeves: 8 hours ago] [Jonathan Lafleur: 8 hours ago]
+Lounge<C++>
+5 hours ago - Mysticial
+[Mysticial: 5 hours ago] [Aaron3468: 5 hours ago] [Borgleader: 6 hours ago] [Jerry Coffin: 7 hours ago] [caps: 7 hours ago] [Griwes: 8 hours ago] [orlp: 10 hours ago]
+Linked
+3
+How to extract two integers from a string?
+Related
+15
+How do you use parent module imports in rust?
+1
+Partition a string in Rust
+11
+Can you run rust code from a c library being called from rust?
+3
+Rust: How to implement linked list?
+10
+In Rust how can I define or import a C struct from a third party library?
+7
+How do you implement specific types on generic traits in rust?
+5
+How to terminate or suspend a Rust thread from another thread?
+1
+How to copy a folder recursively in Rust?
+2
+rust: use of undeclared type name `io::IOResult`
+10
+How to debug a crate in rust
+Hot Network Questions
+
+    How can you possibly stop/kill a person who has the ability to stop time?
+    Simple string reverse program in C++
+    XKCD inspired logic puzzle
+    Does TDD make defensive programming redundant?
+    At least one is mandatory. How do I make this clear?
+    What is the purpose of women-only meetings, panels, conferences, etc. in academia?
+    How can empty USB sticks contain malware?
+    Why is the Samsung Galaxy Note7 banned in flight?
+    Prime counting function
+    "Team" of companies?
+    How to type this kind of block matrix?
+    Restrict variadic template arguments
+    How much, if at all, should a DM coach new players on basics?
+    Why is Pot of Greed banned?
+    Bubblesort implementation in C++
+    Was I scammed by BoraJet? They cancelled the flight, promised to pay for another ticket - it didn't happen
+    How to Kill the Thought-Crime Killer
+    How to avoid hotels with bellhops in the USA
+    How was this scene shot without hurting Charlie Chaplin?
+    If damage is redirected infinitely, does the game end in a draw?
+    When has a sovereign state last given territory to another as a gift?
+    The Decanting Problem
+    Is it "vita" or "vitae"? Why?
+    How do I install this knee brace to my pergola post?
+
+question feed
+about us tour help blog chat data legal privacy policy work here advertising info mobile contact us feedback
+Technology 	Life / Arts 	Culture / Recreation 	Science 	Other
+
+    Stack Overflow
+    Server Fault
+    Super User
+    Web Applications
+    Ask Ubuntu
+    Webmasters
+    Game Development
+    TeX - LaTeX
+
+	
+
+    Programmers
+    Unix & Linux
+    Ask Different (Apple)
+    WordPress Development
+    Geographic Information Systems
+    Electrical Engineering
+    Android Enthusiasts
+    Information Security
+
+	
+
+    Database Administrators
+    Drupal Answers
+    SharePoint
+    User Experience
+    Mathematica
+    Salesforce
+    ExpressionEngine® Answers
+    Cryptography
+
+	
+
+    Code Review
+    Magento
+    Signal Processing
+    Raspberry Pi
+    Programming Puzzles & Code Golf
+    more (7)
+
+	
+
+    Photography
+    Science Fiction & Fantasy
+    Graphic Design
+    Movies & TV
+    Music: Practice & Theory
+    Seasoned Advice (cooking)
+    Home Improvement
+    Personal Finance & Money
+
+	
+
+    Academia
+    more (8)
+
+	
+
+    English Language & Usage
+    Skeptics
+    Mi Yodeya (Judaism)
+    Travel
+    Christianity
+    English Language Learners
+    Japanese Language
+    Arqade (gaming)
+
+	
+
+    Bicycles
+    Role-playing Games
+    Anime & Manga
+    more (18)
+
+	
+
+    Mathematics
+    Cross Validated (stats)
+    Theoretical Computer Science
+    Physics
+    MathOverflow
+    Chemistry
+    Biology
+    Computer Science
+
+	
+
+    Philosophy
+    more (3)
+
+	
+
+    Stack Apps
+    Meta Stack Exchange
+    Area 51
+    Stack Overflow Careers
+
+site design / logo © 2016 Stack Exchange Inc; user contributions licensed under cc by-sa 3.0 with attribution required
+rev 2016.9.23.4006
+
