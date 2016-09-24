@@ -25,11 +25,11 @@ impl Procedure {
 
             let mut z = Complex::new(cx, cy);
 
-            if j >= data.len() - 4 {
-                j = 0;
+            if j >= data.len() - 5 {
+                break;
             }
 
-            let complex = Complex::new(((data[j] / 100) as f32), (data[j + 1] / 100) as f32);
+            let complex = Complex::new(-0.4 * 0.75f32 * (data[j] as f32).log(10f32), 0.6 * 0.8f32 * (data[j + 1] as f32).log(10f32));
 
             let mut i = 0;
 
@@ -44,7 +44,7 @@ impl Procedure {
 
             *px = image::Luma([i as u8]);
 
-            j += 4;
+            j += 5;
         }
 
         let ref mut fout = File::create(&Path::new(name)).unwrap();
