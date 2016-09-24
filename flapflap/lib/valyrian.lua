@@ -3,6 +3,16 @@ require "lib/deepcopy"
 local _things = {}
 local _instances = {}
 
+function kill_these(a)
+  for k, v in pairs(_instances) do
+    for l, w in pairs(a) do
+      if v == w then
+        _instances[k] = nil
+      end
+    end
+  end
+end
+
 local function call_index(t, func, ...)
   local args = {...}
   if #args > 0 then
