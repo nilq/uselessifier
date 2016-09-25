@@ -24,7 +24,9 @@ public class FileLoader : MonoBehaviour
 
     void Start()
     {
-        LoadFile(@"C:\Users\Stalhandske\Dropbox\Pictures\useless.jpg");
+        LoadFile(Application.streamingAssetsPath + "/useless.jpg");
+        
+        
         //NextBit(); NextBit(); NextBit(); NextBit(); NextBit(); NextBit(); NextBit(); NextBit();
         //NextBit(); NextBit(); NextBit(); NextBit(); NextBit(); NextBit(); NextBit(); NextBit();
     }
@@ -111,7 +113,7 @@ public class FileLoader : MonoBehaviour
 
         if (currentBitArray == null || currentBitArrayIndex >= 8)
         {
-            currentBitArray = new BitArray(new byte[] { (byte)f.ReadByte() });
+            currentBitArray = new BitArray(new byte[] { NextByte() });
             currentBitArrayIndex = 0;
         }
        

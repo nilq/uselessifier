@@ -20,7 +20,7 @@ public class Splash : MonoBehaviour {
 
     void Awake()
     {
-        Screen.SetResolution(512, 512, false);
+        Screen.SetResolution(160, 144, false);
     }
 
     // Use this for initialization
@@ -41,11 +41,20 @@ public class Splash : MonoBehaviour {
             isFading = true;
             StartCoroutine(FadeCo());
         }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Screen.SetResolution(Screen.width + 160, Screen.height + 144, false);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Screen.SetResolution(Screen.width - 160, Screen.height - 144, false);
+        }
     }
 
     IEnumerator FadeCo()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         text1.color = fadeColor1;
         text2.color = fadeColor1;
         yield return new WaitForSeconds(0.1f);
@@ -54,7 +63,7 @@ public class Splash : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         text1.color = fadeColor3;
         text2.color = fadeColor3;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("MainMenu");
     }
 }

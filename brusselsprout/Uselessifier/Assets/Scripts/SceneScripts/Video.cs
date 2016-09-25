@@ -14,7 +14,7 @@ public class Video : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         rawImage = GetComponent<RawImage>();
-        tex = new Texture2D(64, 64,TextureFormat.RGBAFloat,false);
+        tex = new Texture2D(80, 72,TextureFormat.RGBAFloat,false);
         colors = tex.GetPixels();
         rawImage.texture = tex;
         tex.filterMode = FilterMode.Point;
@@ -28,7 +28,7 @@ public class Video : MonoBehaviour {
         {
             for (int i = 0; i < colors.Length; i++)
             {
-                b = FileLoader.NextByte()/255f;
+                b = System.Convert.ToInt32( FileLoader.NextBit());
                 colors[i] = new Color(b,b,b);
             }
         }

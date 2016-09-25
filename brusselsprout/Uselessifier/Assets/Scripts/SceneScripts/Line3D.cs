@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Line3D : MonoBehaviour {
 
     public int vertices;
+    public int changesPerChange;
 
     LineRenderer lineRenderer;
 
@@ -38,8 +39,11 @@ public class Line3D : MonoBehaviour {
 
         if (Time.frameCount % 100 == 0)
         {
-            vs.RemoveAt(0);
-            vs.Add(FileLoader.NextVector3().normalized - Vector3.one * 0.5f);
+            for (int i = 0; i < changesPerChange; i++)
+            {
+                vs.RemoveAt(0);
+                vs.Add(FileLoader.NextVector3().normalized - Vector3.one * 0.5f);
+            }
         }
     }
 }

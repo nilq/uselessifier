@@ -18,6 +18,8 @@ public class Bits : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        if (Time.frameCount % 5 != 0)
+            return;
         for (int y = 0; y < countPerFrame; y++)
         {
             if (text.text.Length > maxCharacters)

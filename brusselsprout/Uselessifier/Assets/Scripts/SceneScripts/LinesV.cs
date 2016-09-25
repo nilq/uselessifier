@@ -6,6 +6,8 @@ public class LinesV : MonoBehaviour {
 
     public GameObject linePrefab;
 
+    public int maxLines;
+
     // Use this for initialization
     void Start () {
     
@@ -18,7 +20,7 @@ public class LinesV : MonoBehaviour {
         lineGO.transform.SetParent(transform, false);
         lineGO.GetComponent<Image>().color = FileLoader.NextColor();
 
-        if (transform.childCount > 50)
+        if (transform.childCount > maxLines)
         {
             Destroy(transform.GetChild(1).gameObject);
         }
