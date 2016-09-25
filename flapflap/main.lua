@@ -97,7 +97,10 @@ class: Bird("Transform2D") {
     end
 
     for k, v in pairs(self.pipes) do
-      if math.intersect(self.position.x, self.position.y, self.sprite:getWidth() / 1.25 * SCALE, self.sprite:getHeight() / 1.25 * SCALE,
+      local w = self.sprite:getWidth() * 0.5 * SCALE
+      local h = self.sprite:getHeight() * 0.5 * SCALE
+
+      if math.intersect(self.position.x - w / 2, self.position.y - h / 2, w, h,
           v.x, v.y, self.pipe:getWidth() * SCALE, self.pipe:getHeight() * SCALE) then
         hit:play()
         self:die()
